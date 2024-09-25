@@ -1,47 +1,25 @@
-// src/App.jsx
 
-import { useState } from 'react';
-import Sidebar from './components/sidebar/Sidebar';
-import Header from './components/header/Header';
-import MainContent from './components/maincontent/MainContent';
-import Login from './components/login/Login'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import Layout from './components/layout/Layout';
+import PrivateRoute from './Auth';
+import Ourstory from './pages/ourstory/Ourstory';
+import Ourteam from './pages/ourteam/Ourteam'
 
-const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [selectedItem, setSelectedItem] = useState('home');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handleSelect = (item) => {
-    setSelectedItem(item);
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
+function App() {
   return (
-    <div className="">
-      {isLoggedIn ? (
-        <>
-          <Sidebar isOpen={isSidebarOpen} selectedItem={selectedItem} onSelect={handleSelect} />
-          <div className={`flex-1 transition-all duration-300 ml-0 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
-            <Header toggleSidebar={toggleSidebar} onLogout={handleLogout} />
-            <MainContent />
-          </div>
-        </>
-      ) : (
-        <Login onLogin={handleLogin} /> 
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="*" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<PrivateRoute><Layout /></PrivateRoute>} >
+          <Route path="ourstory" element={<Ourstory />} />
+          <Route path="ourteam" element={<Ourteam />} />
+        </Route>
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

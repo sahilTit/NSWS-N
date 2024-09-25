@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, selectedItem, onSelect }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -27,6 +28,7 @@ const Sidebar = ({ isOpen, selectedItem, onSelect }) => {
             <nav className="p-4">
                 <ul>
                     <li className="mb-2">
+
                         <a href="#" className={getItemClass('home')} onClick={() => onSelect('home')}>Dashboard</a>
                     </li>
                     <li className="mb-2">
@@ -37,10 +39,14 @@ const Sidebar = ({ isOpen, selectedItem, onSelect }) => {
                         {isAboutOpen && (
                             <ul className="ml-4">
                                 <li className="mb-2">
-                                    <a href="#" className={getItemClass('ourTeam')} onClick={() => onSelect('ourTeam')}>Our Team</a>
+                                    <NavLink to='ourteam'>
+                                        <button className={getItemClass('ourTeam')} onClick={() => onSelect('ourTeam')}>Our Team</button>
+                                    </NavLink>
                                 </li>
                                 <li className="mb-2">
-                                    <a href="#" className={getItemClass('ourStory')} onClick={() => onSelect('ourStory')}>Our Story</a>
+                                    <NavLink to='ourstory'>
+                                        <button className={getItemClass('ourStory')} onClick={() => onSelect('ourStory')}>Our Story</button>
+                                    </NavLink>
                                 </li>
                             </ul>
                         )}
